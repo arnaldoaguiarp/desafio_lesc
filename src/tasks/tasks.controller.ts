@@ -16,23 +16,23 @@ export class TasksController {
     async getAll() : Promise<TaskEntity[]> {
         return this.tasksService.getAll();
     }
-
+/*
     @Get()
     async getById(@Param('id') id: number) : Promise<TaskEntity> {
         return this.tasksService.getById(id);
     }
-
+    
     @Post()
     @ApiBody({ type: UserDto })
     async create(@Body() task: Task): Promise<TaskEntity> {
         return this.tasksService.create(task);
     }
-
+    
     @Put(':id')
     async update(@Param('id') id: number, @Body() task: Task): Promise<TaskEntity> {
         return this.tasksService.update(id, task);
     }
-
+*/
     @Delete(':id')
     async delete(@Param('id') id:number) {
         this.tasksService.delete(id);

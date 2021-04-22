@@ -33,13 +33,13 @@ export class TasksService {
     async getById(id: number) { 
         return await this.taskRepository.findByIds;
     }
-
+    /*
     async create(task: Task): Promise<TaskEntity>{
         //return await this.taskRepository.save(task);
         const createdTask = new this.taskRepository(task);
         return await createdTask.save();
     }
-
+    */
     async update(id: number, task: Task) {
         await this.taskRepository.update({id}, task);
         return this.getById(id);
