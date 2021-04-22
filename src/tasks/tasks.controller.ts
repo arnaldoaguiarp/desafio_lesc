@@ -1,37 +1,40 @@
 import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
 import { Task } from './shared/task';
-import { TaskService } from './shared/task.service';
+import { TasksService } from './shared/task.service';
+import { ApiBody } from '@nestjs/swagger';
+import { UserDto } from 'src/users/dtos/user.dto';
+import { TaskEntity } from './database/task.entity';
 
 @Controller('tasks')
 export class TasksController {
 
     constructor(
-        private taskService: TaskService
+        private tasksService: TasksService
     ) { }
 
     @Get()
-    async getAll() : Promise<Task[]> {
-        return this.taskService.getAll();
+    async getAll() : Promise<TaskEntity[]> {
+        return this.tasksService.getAll();
     }
 
-    @Get(':id')
-    async getById(@Param('id') id: number) : Promise<Task> {
-        return this.taskService.getById(id);
+    @Get()
+    async getById(@Param('id') id: number) : Promise<TaskEntity> {
+        return this.tasksService.getById(id);
     }
 
     @Post()
-    async create(@Body() task: Task): Promise<Task> {
-        return this.taskService.create(task);
+    @ApiBody({ type: UserDto })
+    async create(@Body() task: Task): Promise<TaskEntity> {
+        return this.tasksService.create(task);
     }
 
     @Put(':id')
-    async update(@Param('id') id: number, @Body() task: Task): Promise<Task> {
-        task.id = id;
-        return this.taskService.update(task);
+    async update(@Param('id') id: number, @Body() task: Task): Promise<TaskEntity> {
+        return this.tasksService.update(id, task);
     }
 
     @Delete(':id')
     async delete(@Param('id') id:number) {
-        this.taskService.delete(id);
+        this.tasksService.delete(id);
     }
 }
