@@ -9,7 +9,7 @@ import { TaskEntity } from './database/task.entity';
 export class TasksController {
 
     constructor(
-        private tasksService: TasksService
+        private readonly tasksService: TasksService
     ) { }
 
     @Get()
@@ -21,13 +21,13 @@ export class TasksController {
     async getById(@Param('id') id: number) : Promise<TaskEntity> {
         return this.tasksService.getById(id);
     }
-    
+*/
     @Post()
     @ApiBody({ type: UserDto })
     async create(@Body() task: Task): Promise<TaskEntity> {
         return this.tasksService.create(task);
     }
-    
+/*
     @Put(':id')
     async update(@Param('id') id: number, @Body() task: Task): Promise<TaskEntity> {
         return this.tasksService.update(id, task);
