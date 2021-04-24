@@ -1,10 +1,17 @@
 //import * as mongoose from 'mongoose'
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { type } from "node:os";
+import { UserEntity } from "src/users/database/user.entity";
+import { UsersService } from "src/users/users.service";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 //export const TaskEntity = new mongoose.Schema({...})
 
 @Entity()
 export class TaskEntity {
+
+    @OneToMany(type => UserEntity, taskEntity => TaskEntity)
+    userEntity: UserEntity;
+
     @PrimaryGeneratedColumn()
     id: number;
 
@@ -14,6 +21,6 @@ export class TaskEntity {
     @Column()
     description: string;
     
-    @Column()
+    @Column({ default: false })
     completed: boolean;
 }

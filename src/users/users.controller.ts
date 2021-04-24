@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { ApiBody } from '@nestjs/swagger';
 import { from } from 'rxjs';
 import { User } from './interfaces/user.interface'
@@ -14,10 +14,15 @@ export class UsersController {
     async index(): Promise<UserEntity[]> {
         return await this.usersService.findAll();
     }
-
+/*
+    @Get(':id')
+    async find(@Param('id') id: number): Promise<UserEntity> {
+        return this.usersService.findAll();
+    }
+*/
     @Post()
     @ApiBody({ type: UserDto })
-    async create(@Body() user: User): Promise<UserEntity> {
+    async create(@Body() user: UserDto ): Promise<UserEntity> {
         return await this.usersService.create(user);
     }
 }

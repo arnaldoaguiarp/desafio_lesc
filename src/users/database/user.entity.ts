@@ -1,7 +1,13 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { TaskEntity } from "src/tasks/database/task.entity";
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class UserEntity {
+    
+    @ManyToOne(type => TaskEntity, taskEntity => TaskEntity)
+    @JoinColumn()
+    taskEntity: TaskEntity;
+    
     @PrimaryGeneratedColumn()
     id: number;
 

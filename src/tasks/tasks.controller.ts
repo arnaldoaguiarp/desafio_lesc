@@ -2,7 +2,7 @@ import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common'
 import { Task } from './shared/task';
 import { TasksService } from './shared/task.service';
 import { ApiBody } from '@nestjs/swagger';
-import { UserDto } from 'src/users/dtos/user.dto';
+import { TaskDto } from 'src/tasks/dtos/task.dto';
 import { TaskEntity } from './database/task.entity';
 
 @Controller('tasks')
@@ -23,16 +23,16 @@ export class TasksController {
     }
 */
     @Post()
-    @ApiBody({ type: UserDto })
+    @ApiBody({ type: TaskDto })
     async create(@Body() task: Task): Promise<TaskEntity> {
         return this.tasksService.create(task);
     }
-/*
+
     @Put(':id')
     async update(@Param('id') id: number, @Body() task: Task): Promise<TaskEntity> {
         return this.tasksService.update(id, task);
     }
-*/
+
     @Delete(':id')
     async delete(@Param('id') id:number) {
         this.tasksService.delete(id);

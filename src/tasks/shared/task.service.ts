@@ -31,18 +31,21 @@ export class TasksService {
     }
 
     async getById(id: number) { 
-        return await this.taskRepository.findByIds;
+        return await this.taskRepository.findOne(id);
+        //findByIds(ids: any[], options?: FindManyOptions<Entity>): Promise<Entity[]>;
     }
     
     async create(task: Task): Promise<TaskEntity>{
         return await this.taskRepository.save(task);
-        //const createdTask = new this.taskRepository(task);
-        //return await createdTask.save();
     }
     
     async update(id: number, task: Task) {
-        await this.taskRepository.update({id}, task);
-        return this.getById(id);
+        //await this.taskRepository.update({id}, task);
+        //return this.getById(id);
+
+        const task_update = await this.taskRepository.findOne(id);
+        this.taskRepository.merge(task_update, task);
+        return this.taskRepository.save(task);
     }
 
     async delete(id: number) {
