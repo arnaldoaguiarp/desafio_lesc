@@ -6,6 +6,11 @@
     "password": "postgres",
     "database": "postgres",
     "entities": ["dist/**/*.entity{.ts,.js}"],
-    "synchronize": true
+    "synchronize": true,
+    "migrationsTableName": "custom_migration_table",
+    "migrations": ["migration/*.js"],
+    "cli": {
+        "migrationsDir": "migration"
   }
+}
   

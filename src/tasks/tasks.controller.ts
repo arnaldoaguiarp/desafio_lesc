@@ -16,12 +16,12 @@ export class TasksController {
     async getAll() : Promise<TaskEntity[]> {
         return this.tasksService.getAll();
     }
-/*
-    @Get()
+
+    @Get(':id')
     async getById(@Param('id') id: number) : Promise<TaskEntity> {
         return this.tasksService.getById(id);
     }
-*/
+
     @Post()
     @ApiBody({ type: TaskDto })
     async create(@Body() task: Task): Promise<TaskEntity> {
