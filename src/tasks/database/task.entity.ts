@@ -2,14 +2,14 @@
 import { type } from "node:os";
 import { UserEntity } from "src/users/database/user.entity";
 import { UsersService } from "src/users/users.service";
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 //export const TaskEntity = new mongoose.Schema({...})
 
 @Entity()
 export class TaskEntity {
 
-    @OneToMany(type => UserEntity, taskEntity => TaskEntity)
+    @ManyToOne(type => UserEntity, taskEntity => TaskEntity, {eager: true})
     userEntity: UserEntity;
 
     @PrimaryGeneratedColumn()
@@ -23,4 +23,10 @@ export class TaskEntity {
     
     @Column({ default: false })
     completed: boolean;
+
+    @CreateDateColumn({ name: 'created_at' })
+    createdAt: Date;
+
+    @UpdateDateColumn({ name: 'updated_at' })
+    updatedAt: Date;
 }

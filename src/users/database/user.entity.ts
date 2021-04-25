@@ -1,12 +1,12 @@
 import { TaskEntity } from "src/tasks/database/task.entity";
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 @Entity()
 export class UserEntity {
     
-    @ManyToOne(type => TaskEntity, taskEntity => TaskEntity)
+    @OneToMany(type => TaskEntity, userEntity => UserEntity)
     @JoinColumn()
-    taskEntity: TaskEntity;
+    taskEntity: TaskEntity[];
     
     @PrimaryGeneratedColumn()
     id: number;
@@ -22,4 +22,10 @@ export class UserEntity {
     
     @Column()
     password: string;
+
+    @CreateDateColumn({ name: 'created_at' })
+    createdAt: Date;
+
+    @UpdateDateColumn({ name: 'updated_at' })
+    updatedAt: Date;
 }
