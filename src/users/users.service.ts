@@ -6,6 +6,24 @@ import { User } from './interfaces/user.interface';
 
 @Injectable()
 export class UsersService {
+/*    
+    private readonly users = [
+        {
+          userId: 1,
+          username: 'john',
+          password: 'changeme',
+        },
+        {
+          userId: 2,
+          username: 'maria',
+          password: 'guess',
+        },
+      ];
+*/    
+      async findOne(username: string): Promise<UserEntity | undefined> {
+        return this.userRepository.find(user => user.username === username);
+      }
+    
     constructor(
         @InjectRepository(UserEntity) 
         private userRepository: Repository<UserEntity>
